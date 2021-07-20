@@ -32,4 +32,4 @@ for i in range(50):
         except Exception as e:
             continue
 jobs_df = pd.DataFrame(jobs_list)
-jobs_df.to_csv('test.csv', index=False)
+jobs_df.to_csv(f'{query}.csv', index=False)
