@@ -4,6 +4,9 @@ from time import time, sleep
 from random import randint
 from bs4 import BeautifulSoup
 
+# create empty DataFrame to save dataset
+movies_df = pd.DataFrame()
+
 # i want to get movies from 1994-2020
 for year in range(1994, 2021):
     # imdb has arg start which takes number of movies to start from
@@ -54,3 +57,21 @@ for year in range(1994, 2021):
                     votes_count = movie.find("p", class_="sort-num_votes-visible").find_all("span")[1]['data-value']
 
                     gross = movie.find("p", class_="sort-num_votes-visible").find_all("span")[4]['data-value']
+
+                    movies_df = movies_df.append({
+                        "title": title,
+                        "rating_type": rated,
+                        "genre": genre,
+                        "runtime": runtime,
+                        "about": about,
+                        "director": director,
+                        "stars": stars,
+                        "rating": rating,
+                        "votes_count": votes_count,
+                        "gross": gross
+
+                    }, ignore_index=True)
+                    sleep(randint(1, 4))
+
+
+movies_df.to_csv('movies_dataset.csv', index=False)
