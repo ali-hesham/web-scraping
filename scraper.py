@@ -26,7 +26,7 @@ for i in range(50):
             jobs_list.append({
                 "job_title": job_title,
                 "company_name": company_name,
-                "years_experience": years_experience,
+                "years_experience": years_experience.replace("Yrs of Exp", ""),
                 "skills": skills
             })
         except Exception as e:
