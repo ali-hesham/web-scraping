@@ -23,22 +23,34 @@ for year in range(1994, 2021):
             cards = soup.find_all("div", class_="lister-item mode-advanced")
 
             for movie in cards:
+
                 # data set contain movies and tvshows, i want to get movies only
                 # only movies has the metascore attribute so will filter by it
-                meta_score = movie.find("div", "inline-block ratings-metascore").span.text
-                if meta_score is not None:
+                meta_score_attr = movie.find("div", "inline-block ratings-metascore")
+
+                if meta_score_attr is not None:
                     # there is only one h3 tag with title
                     title = movie.h3.a.text
+
                     # movie parental rating
-                    rated = movie.find("span", class_="certificate").text
+                    rated = movie.find("span", class_="certificate").text \
+                        if movie.find("span", class_="certificate") is not None else None
+
                     genre = movie.find("span", class_="genre").text
+
                     runtime = movie.find("span", class_="runtime").text
-                    director = movie.find("p", class_="").text.strip().strip("\n").split('|')[0].strip("Director:")\
+
+                    director = movie.find("p", class_="").text.strip().strip("\n").split('|')[0].strip("Director:") \
                         .strip("\n")
+
                     stars = [star.strip(" \n") for star in
                              (movie.find("p", class_="").text.strip().strip("\n").split('|')[1].strip().strip("Stars:")
                               .split(","))]
+
                     rating = float(movie.find("div", class_="inline-block ratings-imdb-rating").strong.text)
+
                     about = movie.find_all("p", class_="text-muted")[1].text
+
                     votes_count = movie.find("p", class_="sort-num_votes-visible").find_all("span")[1]['data-value']
+
                     gross = movie.find("p", class_="sort-num_votes-visible").find_all("span")[4]['data-value']
