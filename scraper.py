@@ -29,11 +29,6 @@ for i in range(50):
                 "years_experience": years_experience,
                 "skills": skills
             })
-            print(job_title)
-            print(company_name)
-            print(years_experience)
-            print(skills)
-            print()
         except Exception as e:
             continue
 jobs_df = pd.DataFrame(jobs_list)
